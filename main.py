@@ -17,7 +17,7 @@ from ItemCardSearchResult import ItemCardSearchResult
 # RegistrationPage
 from MainPage import MainPage
 from WB_common_consts import URL
-
+import WB_UnitTests
 
 class App:
     def __init__(self):
@@ -25,6 +25,7 @@ class App:
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(10)
         self.driver.get(URL.WB_main_URL)
+        self.driver.maximize_window()
 
         self.main_page = MainPage(self.driver)
 
@@ -96,7 +97,7 @@ class App:
     # Выбор товара из строки поиска
 
     # Добавление товара в корзину
-    def test_add_good_in_bascket(self, goods_name):
+    def test_add_good_in_basket(self, goods_name):
         search_result_page = self.main_page.search_item(goods_name)
         item = search_result_page.get_item(1)
 
@@ -127,7 +128,14 @@ if __name__ == '__main__':
     try:
         app = App()
 
-        app.test_search_item()
+        b_unit_test = True
+
+        if b_unit_test:
+            WB_UnitTests.utest_add_item_to_basket(app)
+
+        else:
+            app.test_search_item('Doom Ps4')
+
     except Exception as e:
         print(f"Исключение: {type(e).__name__}")
         print(f"Содержимое: {str(e)}")

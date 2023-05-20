@@ -1,8 +1,9 @@
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
-
+from ProductPage import ProductPage
 import WB_common
+
 
 class ItemCardSearchResult:
     def __init__(self, driver, index: int):
@@ -92,8 +93,7 @@ class ItemCardSearchResult:
             .perform()
 
         # Вернуть page object для страницы с товаром
-
-        return
+        return ProductPage(self.driver)
 
     def get_brand_name(self):
         return self.brand_name
